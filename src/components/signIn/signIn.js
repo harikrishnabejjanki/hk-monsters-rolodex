@@ -2,6 +2,7 @@ import React from 'react';
 import './signIn.scss';
 import FormInput from '../../components/form-input/forminput';
 import CustomButton from '../../components/custom-button/custom-button';
+import { signInWithGoogle } from '../../firebase/firebase_util';
 
 class signIn extends React.Component {
     constructor(props) {
@@ -18,16 +19,15 @@ class signIn extends React.Component {
         this.setState({ email: '', password: '' });
 
     }
-    handleChange = event => { 
+    handleChange = event => {
         const { value, name } = event.target;
 
-        this.setState({[name] : value});
-        
+        this.setState({ [name]: value });
+
 
     }
-    render() {
-        console.log(this.state);
-        
+    render() { 
+
         return (
             <div className="sign-in">
                 <h2>I already have a account</h2>
@@ -35,12 +35,12 @@ class signIn extends React.Component {
 
 
                 <form onSubmit={this.handleSubmit}>
-                    <FormInput name="email" type="email" value={this.state.email} required handleChnage={this.handleChange} label="Email"/>
-                   
-                    <FormInput name="password" type="password" value={this.state.password} required handleChnage={this.handleChange} label="Password"/>
-                    
-
-                    <CustomButton type="submit" value="Submit Form">Sign In</CustomButton>
+                    <FormInput name="email" type="email" value={this.state.email} required handleChnage={this.handleChange} label="Email" />
+                    <FormInput name="password" type="password" value={this.state.password} required handleChnage={this.handleChange} label="Password" />
+                    <div className="submit-buttons">
+                        <CustomButton type="submit" value="Submit Form"  >Sign In</CustomButton>
+                        <CustomButton onClick={signInWithGoogle} value="Submit Form" isGoogleSignIn>Sign In with Google</CustomButton>
+                    </div>
                 </form>
             </div>
         );

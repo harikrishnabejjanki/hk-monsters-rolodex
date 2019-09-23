@@ -8,9 +8,23 @@ export const addItemToCart = (cartItems, cartItemsToAdd) => {
     );
 
 
-    if(existingCartItem){
-        return cartItems.map(cartItem => cartItem.id === cartItemsToAdd.id ? {...cartItem, quantity: cartItem.quantity+1} : cartItem)
+    if (existingCartItem) {
+        return cartItems.map(cartItem => cartItem.id === cartItemsToAdd.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem)
     }
 
-    return [...cartItems, {...cartItemsToAdd, quantity:1}]
+    return [...cartItems, { ...cartItemsToAdd, quantity: 1 }]
 };
+
+
+export const deleteItemFromCart = (cartItems, cartItemsToDelete) => {
+
+    const deletingExistingItem = cartItems.find(
+        cartItem => cartItem.id === cartItemsToDelete.id
+    );
+
+    if (deletingExistingItem.quantity === 1) {
+        return cartItems.filter(cartItem => cartItem.id !== cartItemsToDelete.id)
+    }
+
+    return cartItems.map(cartItem => cartItem.id === cartItemsToDelete.id ? { ...cartItem, quantity: cartItem.quantity - 1 } : cartItem);
+}

@@ -26,5 +26,5 @@ const collectionItem = ({ item, addItem }) => {
 
 const mapDispatchToProps = dispatch => ({
     addItem: item => dispatch(addItemToCart(item))       // add Item is the prop (or function) and addItemToCart is the action creater 
-})
+});
 export default connect(null, mapDispatchToProps)(collectionItem);

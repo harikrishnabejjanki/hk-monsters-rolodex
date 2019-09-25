@@ -6,7 +6,13 @@ import RootReducer from './Root-Reducer';
 
 const middleWares = [];
 
-if (process.env.NODE_ENV === 'development') {
+function noop() { }
+
+if (process.env.NODE_ENV !== 'development') {
+    console.log = noop;
+    console.warn = noop;
+    console.error = noop;
+}else if (process.env.NODE_ENV === 'development') {
     middleWares.push(logger);
 }
 

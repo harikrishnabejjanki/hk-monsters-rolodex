@@ -1,23 +1,18 @@
 import { createStore, applyMiddleware } from 'redux';
-import logger from 'redux-logger';
 import { persistStore } from 'redux-persist';
-import RootReducer from './Root-Reducer';
+import logger from 'redux-logger';
+import thunk from 'redux-thunk';
 
+import rootReducer from './root-reducer';
 
-const middleWares = [];
-
-function noop() { }
+const middlewares = [thunk];
 
 if (process.env.NODE_ENV === 'development') {
-    middleWares.push(logger);
-} else if (process.env.NODE_ENV !== 'development') {
-    console.log = noop;
-    console.warn = noop;
-    console.error = noop;
+  middlewares.push(logger);
 }
 
-export const store = createStore(RootReducer, applyMiddleware(...middleWares));
+export const store = createStore(rootReducer, applyMiddleware(...middlewares));
 
 export const persistor = persistStore(store);
 
-export default { store, persistor };
+export default { store, persistStore };
